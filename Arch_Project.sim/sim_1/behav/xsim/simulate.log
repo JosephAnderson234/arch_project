@@ -1,4 +1,223 @@
 Time resolution is 1 ps
-ADD: result=00000000 valid=0 flags=00000
-Tests completos.
-$finish called at time : 215 ns : File "C:/Users/cosea/Documents/vivado/Arch_Project/Arch_Project.srcs/sources_1/new/tb/tb_fpu_top.v" Line 101
+
+========================================
+   FPU ADD/SUB ROBUST TESTBENCH
+========================================
+
+--- SINGLE PRECISION BASIC OPERATIONS ---
+
+=== Test 1:        1.0 + 2.0 ===
+Mode: SINGLE | Op: ADD | Round: NEAR
+Input:    1.0000000000 + 2.0000000000
+Expected: 3.0000000000 (0x40400000)
+Got:      3.0000000000 (0x40400000)
+Flags:    00000
+✓ PASS
+
+=== Test 2:        5.0 - 3.0 ===
+Mode: SINGLE | Op: SUB | Round: NEAR
+Input:    5.0000000000 - 3.0000000000
+Expected: 2.0000000000 (0x40000000)
+Got:      2.0000000000 (0x40000000)
+Flags:    00000
+✓ PASS
+
+=== Test 3:        1.0 + 0.5 ===
+Mode: SINGLE | Op: ADD | Round: NEAR
+Input:    1.0000000000 + 0.5000000000
+Expected: 1.5000000000 (0x3fc00000)
+Got:      1.5000000000 (0x3fc00000)
+Flags:    00000
+✓ PASS
+
+=== Test 4:        2.5 - 2.5 ===
+Mode: SINGLE | Op: SUB | Round: NEAR
+Input:    2.5000000000 - 2.5000000000
+Expected: 0.0000000000 (0x00000000)
+Got:      0.0000000000 (0x00000000)
+Flags:    01000
+✓ PASS
+
+=== Test 5:        0.1 + 0.2 ===
+Mode: SINGLE | Op: ADD | Round: NEAR
+Input:    0.1000000000 + 0.2000000000
+Expected: 0.3000000000 (0x3e999999)
+Got:      0.2999999821 (0x3e999999)
+Flags:    00000
+✓ PASS
+
+=== Test 6:     10.5 + 20.25 ===
+Mode: SINGLE | Op: ADD | Round: NEAR
+Input:    10.5000000000 + 20.2500000000
+Expected: 30.7500000000 (0x41f60000)
+Got:      30.7500000000 (0x41f60000)
+Flags:    00000
+✓ PASS
+
+--- SINGLE PRECISION NEGATIVE NUMBERS ---
+
+=== Test 7:      -1.0 + -2.0 ===
+Mode: SINGLE | Op: ADD | Round: NEAR
+Input:    -1.0000000000 + -2.0000000000
+Expected: -3.0000000000 (0xc0400000)
+Got:      -3.0000000000 (0xc0400000)
+Flags:    00000
+✓ PASS
+
+=== Test 8:       3.0 + -1.0 ===
+Mode: SINGLE | Op: ADD | Round: NEAR
+Input:    3.0000000000 + -1.0000000000
+Expected: 2.0000000000 (0x40000000)
+Got:      2.0000000000 (0x40000000)
+Flags:    00000
+✓ PASS
+
+=== Test 9:      -5.0 - -3.0 ===
+Mode: SINGLE | Op: SUB | Round: NEAR
+Input:    -5.0000000000 - -3.0000000000
+Expected: -2.0000000000 (0xc0000000)
+Got:      -2.0000000000 (0xc0000000)
+Flags:    00000
+✓ PASS
+
+=== Test 10:        1.0 - 2.0 ===
+Mode: SINGLE | Op: SUB | Round: NEAR
+Input:    1.0000000000 - 2.0000000000
+Expected: -1.0000000000 (0xbf800000)
+Got:      -1.0000000000 (0xbf800000)
+Flags:    00000
+✓ PASS
+
+--- SINGLE PRECISION SMALL/LARGE VALUES ---
+
+=== Test 11: .00001 + 0.00002 ===
+Mode: SINGLE | Op: ADD | Round: NEAR
+Input:    0.0000100000 + 0.0000200000
+Expected: 0.0000300000 (0x37fba882)
+Got:      0.0000300000 (0x37fba882)
+Flags:    00000
+✓ PASS
+
+=== Test 12:  1000.0 + 2000.0 ===
+Mode: SINGLE | Op: ADD | Round: NEAR
+Input:    1000.0000000000 + 2000.0000000000
+Expected: 3000.0000000000 (0x453b8000)
+Got:      3000.0000000000 (0x453b8000)
+Flags:    00000
+✓ PASS
+
+=== Test 13:      1e10 + 1e10 ===
+Mode: SINGLE | Op: ADD | Round: NEAR
+Input:    10000000000.0000000000 + 10000000000.0000000000
+Expected: 20000000000.0000000000 (0x509502f9)
+Got:      20000000000.0000000000 (0x509502f9)
+Flags:    00000
+✓ PASS
+
+--- SINGLE PRECISION SPECIAL CASES ---
+
+=== Test 14:        0.0 + 0.0 ===
+Mode: SINGLE | Op: ADD | Round: NEAR
+Input:    0.0000000000 + 0.0000000000
+Expected: 0.0000000000 (0x00000000)
+Got:      0.0000000000 (0x00000000)
+Flags:    00000
+✓ PASS
+
+=== Test 15:        1.0 + 0.0 ===
+Mode: SINGLE | Op: ADD | Round: NEAR
+Input:    1.0000000000 + 0.0000000000
+Expected: 1.0000000000 (0x3f800000)
+Got:      1.0000000000 (0x3f800000)
+Flags:    00000
+✓ PASS
+
+=== Test 16:        0.0 - 0.0 ===
+Mode: SINGLE | Op: SUB | Round: NEAR
+Input:    0.0000000000 - 0.0000000000
+Expected: 0.0000000000 (0x00000000)
+Got:      0.0000000000 (0x00000000)
+Flags:    00000
+✓ PASS
+
+--- HALF PRECISION BASIC OPERATIONS ---
+
+=== Test 17:  HALF: 1.0 + 2.0 ===
+Mode:   HALF | Op: ADD | Round: NEAR
+Input:    1.0000000000 + 2.0000000000
+Expected: 3.0000000000 (0x00004200)
+Got:      3.0000000000 (0x00004200)
+Flags:    00000
+✓ PASS
+
+=== Test 18:  HALF: 3.0 - 1.0 ===
+Mode:   HALF | Op: SUB | Round: NEAR
+Input:    3.0000000000 - 1.0000000000
+Expected: 2.0000000000 (0x00004000)
+Got:      2.0000000000 (0x00004000)
+Flags:    00000
+✓ PASS
+
+=== Test 19:  HALF: 1.0 + 0.5 ===
+Mode:   HALF | Op: ADD | Round: NEAR
+Input:    1.0000000000 + 0.5000000000
+Expected: 1.5000000000 (0x00003e00)
+Got:      1.5000000000 (0x00003e00)
+Flags:    00000
+✓ PASS
+
+=== Test 20:  HALF: 4.0 + 4.0 ===
+Mode:   HALF | Op: ADD | Round: NEAR
+Input:    4.0000000000 + 4.0000000000
+Expected: 8.0000000000 (0x00004800)
+Got:      8.0000000000 (0x00004800)
+Flags:    00000
+✓ PASS
+
+--- HALF PRECISION NEGATIVE NUMBERS ---
+
+=== Test 21: ALF: -1.0 + -2.0 ===
+Mode:   HALF | Op: ADD | Round: NEAR
+Input:    -1.0000000000 + -2.0000000000
+Expected: -3.0000000000 (0x0000c200)
+Got:      -3.0000000000 (0x0000c200)
+Flags:    00000
+✓ PASS
+
+=== Test 22:  HALF: 2.0 - 3.0 ===
+Mode:   HALF | Op: SUB | Round: NEAR
+Input:    2.0000000000 - 3.0000000000
+Expected: -1.0000000000 (0x0000bc00)
+Got:      -1.0000000000 (0x0000bc00)
+Flags:    00000
+✓ PASS
+
+--- HALF PRECISION SMALL VALUES ---
+
+=== Test 23: HALF: 0.5 + 0.25 ===
+Mode:   HALF | Op: ADD | Round: NEAR
+Input:    0.5000000000 + 0.2500000000
+Expected: 0.7500000000 (0x00003a00)
+Got:      0.7500000000 (0x00003a00)
+Flags:    00000
+✓ PASS
+
+=== Test 24:  HALF: 0.1 + 0.1 ===
+Mode:   HALF | Op: ADD | Round: NEAR
+Input:    0.1000000000 + 0.1000000000
+Expected: 0.2000000000 (0x00003266)
+Got:      0.1999511719 (0x00003266)
+Flags:    00000
+✓ PASS
+
+========================================
+   TEST SUMMARY
+========================================
+Total tests:  24
+Passed:       24
+Failed:       0
+Success rate: 100.0%
+========================================
+
+🎉 ALL TESTS PASSED! 🎉
+$finish called at time : 240 ns : File "C:/Users/cosea/Documents/vivado/Arch_Project/Arch_Project.srcs/sources_1/new/tb/tb_addsub.v" Line 373

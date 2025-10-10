@@ -212,8 +212,11 @@ module fpu_div_fp32_vivado (
                 flags[1] = 1'b1;                  // underflow
                 // sticky por bits "caídos" + resto de la división
                 lost_bits = (r_fixed!=0) ? 1'b1 : 1'b0;
-                for (i=0; i<shift; i=i+1) begin
-                    if (frac_fin[i]) lost_bits = 1'b1;
+                if (shift >= 24) begin
+                    lost_bits = lost_bits | (|frac_fin);
+                end else if (shift != 0) begin
+                    mask = ((24'd1 << shift) - 24'd1);
+                    lost_bits = lost_bits | (|(frac_fin & mask));
                 end
                 flags[0] = inexact_rnd | lost_bits;
             end
@@ -228,6 +231,7 @@ module fpu_div_fp32_vivado (
     // 11) Registro de salida (misma latencia que MUL: 1 ciclo tras start)
     reg [31:0] result_r;
     reg [4:0]  flags_r;
+        reg [23:0] mask;
 
     always @(posedge clk) begin
         if (rst) begin
@@ -249,4 +253,3 @@ module fpu_div_fp32_vivado (
     end
 
 endmodule
-

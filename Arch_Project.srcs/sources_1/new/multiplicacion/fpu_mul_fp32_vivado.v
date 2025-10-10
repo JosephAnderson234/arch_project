@@ -21,7 +21,7 @@
 
 
 
-// fpu_mul_fp32_min.v — multiplicación IEEE-754 FP32 (didáctico y compacto)
+// fpu_mul_fp32_min.v - multiplicación IEEE-754 FP32 (didáctico y compacto)
 
 module fpu_mul_fp32_vivado (
     input  wire        clk,
@@ -165,6 +165,7 @@ module fpu_mul_fp32_vivado (
         reg [23:0] frac_den;
         integer i;
         reg lost_bits;
+        reg [23:0] mask;
 
         normal_word  = 32'b0;
         normal_flags = 5'b0;
@@ -195,8 +196,11 @@ module fpu_mul_fp32_vivado (
                 normal_flags[1] = 1'b1; // underflow
                 // sticky por lo perdido en el desplazamiento: OR de los bits que se "cayeron"
                 lost_bits = 1'b0;
-                for (i=0; i<shift; i=i+1) begin
-                    if (frac_fin[i]) lost_bits = 1'b1;
+                if (shift >= 24) begin
+                    lost_bits = |frac_fin;
+                end else if (shift != 0) begin
+                    mask = ((24'd1 << shift) - 24'd1);
+                    lost_bits = |(frac_fin & mask);
                 end
                 normal_flags[0] = inexact_rnd | lost_bits;
             end
@@ -229,4 +233,3 @@ module fpu_mul_fp32_vivado (
         end
     end
 endmodule
-

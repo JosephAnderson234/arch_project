@@ -109,6 +109,7 @@ module fpu_muldiv (
         reg  [7:0] E;
         reg [22:0] F;
         integer    sh;
+        integer    k;
         reg  [9:0] ff;
         begin
             s = h[15]; e = h[14:10]; f = h[9:0];
@@ -118,9 +119,12 @@ module fpu_muldiv (
                 end else begin
                     // subnormal -> normaliza
                     ff = f; sh = 0;
-                    while (ff[9]==1'b0) begin
-                        ff = ff << 1;
-                        sh = sh + 1;
+                    // bounded normalization (synthesizable)
+                    for (k=0; k<10; k=k+1) begin
+                        if (ff[9]==1'b0) begin
+                            ff = ff << 1;
+                            sh = sh + 1;
+                        end
                     end
                     ff = ff & 10'h1FF;          // quitar el 1
                     // Nota: aproximación simple del exponente al normalizar
