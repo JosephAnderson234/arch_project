@@ -1,0 +1,4 @@
+Time resolution is 1 ps
+ADD: result=00000000 valid=0 flags=00000
+Tests completos.
+$finish called at time : 215 ns : File "C:/Users/cosea/Documents/vivado/Arch_Project/Arch_Project.srcs/sources_1/new/tb/tb_fpu_top.v" Line 101
